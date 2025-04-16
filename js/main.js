@@ -1,5 +1,6 @@
 const countries = document.querySelector('.country')
 const inputSearch = document.querySelector('.search-country')
+const formSelect = document.querySelector('.form-select')
 
 const url = "https://restcountries.com/v3.1/all";
 
@@ -34,7 +35,7 @@ function renderCountry(data){
         col.classList.add("col-12","col-md-6","col-lg-3","my-4")
         const cardLink = document.createElement('a')
         cardLink.classList.add('card')
-        cardLink.setAttribute('href',"./country-inner.html")
+        cardLink.setAttribute('href',`./country-inner.html?name=${countryName}`,)
 
         const {flags: { png,svg,alt } } = country
 
@@ -72,5 +73,21 @@ inputSearch.addEventListener('input',() => {
     console.log(filterCountry)
     renderCountry(filterCountry)
 })
+
+// search region
+
+
+formSelect.addEventListener('change',() => {
+    const selectRegion = formSelect.value
+    console.log(selectRegion)
+
+    if(selectRegion === "All"){
+        renderCountry(countryData)
+    }else {
+        const filterRegionCountry = countryData.filter(country => country.region === selectRegion)
+        renderCountry(filterRegionCountry)
+    }
+})
+
 
 
